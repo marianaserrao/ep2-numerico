@@ -22,8 +22,8 @@ def norm(x):
         value+=xi**2
     return value**(1/2)
 
-def get_wk(A):
-    ak = A[1:, 0:1].copy()
+def get_wk(M):
+    ak = M[1:, 0:1].copy()
     sign = np.sign(ak[0])
     ak[0] = ak[0] + sign*norm(ak)
     wk=[0, *ak]
@@ -65,13 +65,12 @@ def get_transformation(M):
         # x = HM[i:i+1,:]
         # x = x.T
         # HMH[:,i:i+1]=get_Hx(x,w)
-
     return HMH
 
 def get_T():
-    T = np.zeros([n,n])
+    T = A.copy()
     for i in range(n-2):
-        M = A[i:n+1,i:n+1]
+        M = T[i:n+1,i:n+1]
         M=get_transformation(M)
         T[i:n+1,i:n+1] = M
     return T

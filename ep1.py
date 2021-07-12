@@ -78,17 +78,19 @@ def get_transformation(M, HT):
 
     return HMH
 
-
-def get_T():
+#funcao para obtecao da matriz tridiagonalizada simetrica pelo metodo de Householder bem como a matriz H transposta
+def get_T(A):
     T = A.copy()
     HT = np.identity(n)
+
+    #iterando n-2 transformacoes Householder
     for i in range(n-2):
         M = T[i:n+1,i:n+1]
         M=get_transformation(M, HT)
         T[i:n+1,i:n+1] = M
     return T, HT
 
-T, HT = get_T()
+T, HT = get_T(A)
 
 print(T)
 print(HT)

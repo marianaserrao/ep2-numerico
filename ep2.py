@@ -1,4 +1,5 @@
 import numpy as np
+from utils import *
 
 A = np.array([[2,-1,1,3],[-1,1,4,2],[1,4,2,-1],[3,2,-1,1]]).astype(np.float32)
 n = np.size(A,0)
@@ -10,12 +11,6 @@ def get_vector(A, index, column=False):
     else:
         return A[index:index+1,:]
 
-#funcao para obter o produto escalar de dois vetores
-def scalar_product(x,y):
-    value = 0
-    for i, xi in enumerate(x):
-        value+=xi*y[i]
-    return value
 
 #funcao para obter a norma de um vetor
 def norm(x):
@@ -31,6 +26,13 @@ def get_wk(M):
     ak[0] = ak[0] + sign*norm(ak)
     wk=[0, *ak]
     return wk
+
+#funcao para obter o produto escalar de dois vetores
+def scalar_product(x,y):
+    value = 0
+    for i, xi in enumerate(x):
+        value+=xi*y[i]
+    return value
 
 #funcao para obter o produto de um vetor pela matriz Householder
 def get_Hx(x, w):
@@ -75,22 +77,26 @@ def get_transformation(M, HT):
     for i in range(m):
         right_transformation(HM,HMH,i)
         right_transformation(HT[n-m:n,n-m:n], HT[n-m:n,n-m:n], i)
-
-    return HMH
+    return HMH, HT
 
 #funcao para obtecao da matriz tridiagonalizada simetrica pelo metodo de Householder bem como a matriz H transposta
-def get_T(A):
+def get_tridiagonalization(A):
     T = A.copy()
     HT = np.identity(n)
 
     #iterando n-2 transformacoes Householder
     for i in range(n-2):
         M = T[i:n+1,i:n+1]
-        M=get_transformation(M, HT)
+        M, HT=get_transformation(M, HT)
         T[i:n+1,i:n+1] = M
     return T, HT
 
-T, HT = get_T(A)
+T, HT = get_tridiagonalization(A)
 
 print(T)
 print(HT)
+
+#realizando decompoziacao qr
+eigenvalues, eigenvectors, iterations = qr_shifted(T, HT, hasShift = True)
+# print('auto-valores:')
+# show(eigenvalues)

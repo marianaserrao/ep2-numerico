@@ -55,6 +55,14 @@ def qr_shifted(A, H, hasShift, err=err):
     u=0
     k=0
 
+    #funcao para normalizar uma matriz
+    def normalize(M):
+        for i,v in enumerate(M):
+            norm = np.linalg.norm(v)
+            # print(norm)
+            normalized = v/np.linalg.norm(v)
+            M[i]=normalized
+
     #funcao para obtencao do deslocamento
     def get_Shift():
         u=0
@@ -81,6 +89,7 @@ def qr_shifted(A, H, hasShift, err=err):
             V[:,0:m]=V[:,0:m]@Q
             k+=1
         m-=1
+    
     eigenvalues = np.diag(A_)
     eigenvectors = V.T
     iterations = k

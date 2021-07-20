@@ -30,7 +30,7 @@ def item_a_b(item):
     is_ortho = check_ortho(Q)
 
     #checando decomposicao qr
-    decomposition_check = check_decomposition(A,eigenvectors,eigenvalues)
+    decomposition_check, max_err = check_decomposition(A,eigenvectors,eigenvalues)
 
     #mostrando resultados
     print('matriz inicial:\n', A)
@@ -45,3 +45,5 @@ def item_a_b(item):
     print('\nmatriz auto-vetores:\n', Q)
     print('\nmatriz auto-vetores é ortogonal? ', is_ortho)
     print('\nproduto de cada auto-vetor pela matriz A é equivalente ao produto de cada respectivo auto-valor por auto-vetor? ', decomposition_check)
+    if decomposition_check:
+        print('\no máximo erro foi da validação acima foi %f \n' % max_err)

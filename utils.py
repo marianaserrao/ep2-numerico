@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import math
 
 #definindo caminho relativo para os arquivos de input
 script_dir = os.path.dirname(__file__)
@@ -104,15 +105,7 @@ def qr_shifted(A, H, hasShift, err=err):
     eigenvectors = V.T
     iterations = k
 
-    return (eigenvalues, eigenvectors, iterations)
-
-#funcao que retorna auto-vetores do gabarito (analiticos)
-def get_analitic_eigenvalues(n):
-    eigenvalues = []
-    for i in range(1,n+1):
-        eig = ((1 - np.cos((2*i-1)*np.pi/(2*n+1)))**(-1))/2
-        eigenvalues.append(eig)
-    return eigenvalues    
+    return (eigenvalues, eigenvectors, iterations) 
 
 ############################# TAREFA 1 ###################################
 
@@ -223,18 +216,24 @@ def check_ortho(M):
     return 'sim'    
 
 #funcao que checa decomposicao qr
-def check_decomposition(M, eigenvectors, eigenvalues):
+def check_decomposition(M, eigenvectors, eigenvalues):    
+    max_err = []
+    for i,vector in enumerate(eigenvectors):       
+        matrix_vec = M@vector
+        value_vec = eigenvalues[i]*vector
+        err = np.amax(np.subtract(matrix_vec,value_vec))
+        max_err.append(err)
+        if err > 10**(-precision):
+            return 'não'
+    return ('sim', np.amax(max_err))
 
-    # def round(value) : 
-    #     return np.round_(value, 3)
-
-    # for i,vector in enumerate(eigenvectors):
-    #     if not np.allclose(M@vector,eigenvalues[i]*vector):
-    #         print(i)
-    #         print(M@vector)
-    #         print(eigenvalues[i]*vector)
-    #         return 'não'
-    return 'sim'
+#funcao que retorna auto-vetores do gabarito (analiticos)
+def get_analitic_eigenvalues(n):
+    eigenvalues = []
+    for i in range(1,n+1):
+        eig = ((1 - np.cos((2*i-1)*np.pi/(2*n+1)))**(-1))/2
+        eigenvalues.append(eig)
+    return eigenvalues   
 
 ################################# TAREFA 2 #################################
 

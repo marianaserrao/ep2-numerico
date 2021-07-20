@@ -3,12 +3,15 @@ from utils import *
 
 np.set_printoptions(precision=precision, suppress=True, linewidth=400)
 
-def item_a_b(item):
+def item_a_b(item, input):
     #definindo input a ser usado
     input_file = 'input-a' if item==0 else 'input-b'
 
-    #construindo matriz A a partir de arquivo de entrada 
-    file = open(inputs_dir+input_file)    
+    #construindo matriz A a partir de arquivo de entrada
+    if input:
+        file = open(input) 
+    else: 
+        file = open(inputs_dir+input_file)    
     A = []
     for i,line in enumerate(file):
         if i ==0: continue
@@ -37,11 +40,12 @@ def item_a_b(item):
     print('\nmatriz tridiagonalizada:\n', T)
     print('\nauto-valores:')
     show(eigenvalues)
-    print('\nauto-valores fornecidos (ou sua fórmula analítica) no enunciado:')
-    if item:
-        show(get_analitic_eigenvalues(20))
-    else:
-        show([7, 2, -1, 2])
+    if not input:
+        print('auto-valores fornecidos (ou sua fórmula analítica) no enunciado:')
+        if item:
+            show(get_analitic_eigenvalues(np.size(A,0)))
+        else:
+            show([7, 2, -1, 2])
     print('\nmatriz auto-vetores:\n', Q)
     print('\nmatriz auto-vetores é ortogonal? ', is_ortho)
     print('\nproduto de cada auto-vetor pela matriz A é equivalente ao produto de cada respectivo auto-valor por auto-vetor? ', decomposition_check)

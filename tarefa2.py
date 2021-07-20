@@ -3,9 +3,12 @@ from utils import *
 
 np.set_printoptions(precision=precision, suppress=True, linewidth=400)
 
-def item_c():
+def item_c(input):
     #obtendo dados do arquivo de entrada
-    file = open(inputs_dir+"input-c")
+    if input:
+        file = open(input) 
+    else: 
+        file = open(inputs_dir+"input-c")
     resultList = []
     for line in file:
         line = line.rstrip('\n')
@@ -34,6 +37,7 @@ def item_c():
     #definindo frequencias e modos de vibracao
     frequencies = np.array([value**(1/2) for value in eigenvalues])
     modos = M_raizinversa@Q
+    modos=modos.T
 
     #ordenando frequencias e modos de vibracao
     sorted_frequencies = sorted(frequencies)[0:5]

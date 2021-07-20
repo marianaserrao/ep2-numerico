@@ -6,7 +6,7 @@ err=10**(-6)
 #funcao para impressao de listas de forma organizada
 def show(items):
     for index,value in enumerate(items):
-        print("%s: %s\n" %(index+1,np.round_(value, 3)))
+        print("%s: %s\n" %(index+1,np.round_(value, 5)))
 
 #funcao para decomposicao QR
 def get_qr_decomposition(A):

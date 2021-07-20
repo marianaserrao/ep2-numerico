@@ -37,6 +37,11 @@ def item_a_b(item):
     print('\nmatriz tridiagonalizada:\n', T)
     print('\nauto-valores:')
     show(eigenvalues)
+    print('\nauto-valores fornecidos (ou sua fórmula analítica) no enunciado:')
+    if item:
+        show(get_analitic_eigenvalues(20))
+    else:
+        show([7, 2, -1, 2])
     print('\nmatriz auto-vetores:\n', Q)
     print('\nmatriz auto-vetores é ortogonal? ', is_ortho)
     print('\nproduto de cada auto-vetor pela matriz A é equivalente ao produto de cada respectivo auto-valor por auto-vetor? ', decomposition_check)

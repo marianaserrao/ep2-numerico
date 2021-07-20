@@ -106,6 +106,14 @@ def qr_shifted(A, H, hasShift, err=err):
 
     return (eigenvalues, eigenvectors, iterations)
 
+#funcao que retorna auto-vetores do gabarito (analiticos)
+def get_analitic_eigenvalues(n):
+    eigenvalues = []
+    for i in range(1,n+1):
+        eig = ((1 - np.cos((2*i-1)*np.pi/(2*n+1)))**(-1))/2
+        eigenvalues.append(eig)
+    return eigenvalues    
+
 ############################# TAREFA 1 ###################################
 
 #funcao para obter uma linha ou coluna de matriz

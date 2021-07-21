@@ -34,7 +34,7 @@ Cada item apresenta os outputs abaixo:
     - Matriz inicial A
     - Matriz tridiagonalizada T
     - Auto-valores 
-    - Matriz auto-vetores Q (normalizados) 
+    - Matriz auto-vetores Q (auto-vetor normalizado em cada coluna) 
     - Validação de ortogonalização da matriz Q
     - Validação da decomposição pelo Algoritmo QR (A . v = $\lambda$ . v)        
     - Auto-valores disponibilizados no site da disciplina (gabarito)
